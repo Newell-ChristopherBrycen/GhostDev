@@ -26,9 +26,10 @@ class Entry:
 
 # journal should contain a collection of entries, and should interact with the storage manager to allow for CRUD actions
 class Journal:
-	def __init__(self, entries)
-		self.entries = [Entry(title), Entry(content), Entry(entry_id), Entry(date)]
-    
+	def __init__(self, storage_manager):
+		self.entries = {}
+		self.storage_manager = storage_manager
+
 
 # StorageManager is the connection to the MongoDB instance. It should connect, then allow for data manipulation
 class StorageManager:
