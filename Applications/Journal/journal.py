@@ -6,17 +6,21 @@ import datetime
 
 # Entry should contain an entryid (generated on creation), a date, a title, and content. 
 class Entry:
-	def __init__(self, entry_id=None, date=None, title, content):
-		self.entry_id = id(self)
-		self.date = datetime.datetime.now().isoformat()
+	def __init__(self, title, content, entry_id=None, date=None):
 		self.title = title 
 		self.content = content
+		self.entry_id = id(self)
+		self.date = datetime.datetime.now().isoformat()
+
 	
 	def display(self, date, title, content):
 		print(f"Date: {self.date}")
 		print(f"Title: {self.title}")
 		print(f"Content:\n{self.content}")
 
+	def __repr__(self):
+		return "Entry('{}','{}','{}','{}'".format(self.title, self.content, self.entry_id, self.date)
+		
 ## TODO: to_dictionary & from_dictionary
 
 
