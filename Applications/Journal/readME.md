@@ -1,7 +1,7 @@
 ## my.Journal
 
-### Featured Code: Python - FastAPI - Postgres
-This app takes in a data entry and then organizes the information in a Postgres Database.
+### Featured Code: Python - MongoDB
+This app takes in a data entry and then organizes the information in a NoSQL Database.
 It should utilize a simple front end web page for input such as journal entry and hasttagged metadata.
 It should allow for recovery of the entries via that same front end service, allowing for recall by date or metadata tag
 
