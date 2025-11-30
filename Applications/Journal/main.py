@@ -5,9 +5,7 @@
 import datetime
 import uuid
 
-# Data Container - recieves information from the Interface. Makes interface Entry available as an object to the Journal. 
-class Entry:
-	# Constructor and core data
+
 from datetime import datetime
 import uuid
 
