@@ -1,11 +1,6 @@
 # AppName: Journal            #
 # Developer: C. Brycen Newell #
 
-
-import datetime
-import uuid
-
-
 from datetime import datetime
 import uuid
 
