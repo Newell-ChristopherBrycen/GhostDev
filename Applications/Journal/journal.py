@@ -3,38 +3,28 @@
 
 
 import datetime
+import uuid
 
-# Entry should contain an entryid (generated on creation), a date, a title, and content. 
+# Data Container - recieves information from the Interface. Makes interface Entry available as an object to the Journal. 
 class Entry:
-	def __init__(self, title, content, entry_id=None, date=None):
+	def __init__(self, title, content, entry_id=None, date=None, tags=None):
 		self.title = title 
 		self.content = content
-		self.entry_id = id(self)
+		self.entry_id = str(uuid.uuid4()) # guaranteed global uniqueness
 		self.date = datetime.datetime.now().isoformat()
+		self.tags = None
 
 	
-	def display(self, date, title, content):
-		print(f"Date: {self.date}")
-		print(f"Title: {self.title}")
-		print(f"Content:\n{self.content}")
 
-	def __repr__(self):
-		return "Entry('{}','{}','{}','{}'".format(self.title, self.content, self.entry_id, self.date)
-		
-## TODO: to_dictionary & from_dictionary
-
-
-# journal should contain a collection of entries, and should interact with the storage manager to allow for CRUD actions
+# provides busines logic and state management (comparing running-config to startup-config for autosave feature)
 class Journal:
-	def __init__(self, storage_manager):
-		self.entries = {}
-		self.storage_manager = storage_manager
+	pass
 
 
-# StorageManager is the connection to the MongoDB instance. It should connect, then allow for data manipulation
+# StorageManager is connection to db.
 class StorageManager:
     pass
 
-# Interface is the UI with which we'll be able to make interact with the journal object
+# Interface is for UI concerns only
 class Interface:
     pass
