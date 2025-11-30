@@ -55,7 +55,63 @@ class Entry():
 
 # provides busines logic and state management (comparing running-config to startup-config for autosave feature)
 class Journal:
-	pass
+	def __init__(self):
+		self._entries = {}
+
+	def add_entry(self, entry):
+		self._entries[entry.entry_id] = entry
+		# TODO: Autosave feature
+
+	def get_entry(self, entry_id):
+		if self._entries.get(entry_id) == None:
+			raise ValueError("This is not a valid Entry ID")
+		return self._entries.get(entry_id) 
+
+	def find_by_title(self, search_title):
+		results = []
+		for entry in self._entries.values():
+			if search_title.lower() in entry._title.lower():
+				results.append(entry)
+		return results 
+
+	def find_by_date(self, search_date):
+		results = []
+		for entry in self._entries.values():
+			if entry.date.date() == search_date.date():
+				results.append(entry)
+		return results
+
+	def get_all_entries(self):
+		return list(self._entries.values())
+
+	def update_entry(self, entry_id, new_title=None, new_content=None):
+		entry = self.get_entry(entry_id)
+		if entry is None:
+			return False
+
+		if new_title is not None:
+			entry.update_title(new_title)
+		if new_content is not None:
+			entry.update_content(new_content)
+	
+		# TODO: Autosave feature add 
+
+		return True 
+
+	def delete_entry(self, entry_id):
+		if entry_id in self._entries:
+			del self._entries[entry_id]
+			# TODO, Autosave feature 
+			return true 
+		return False
+
+	# dirty entry is an entry that has been updated and needs to be saved
+	def list_dirty_entries(self):
+		dirty_entries = []
+		for entry in self._entries.values():
+			if entry.is_dirty():
+				dirty_entries.append(entry)
+		return dirty_entries
 
 
 # StorageManager is connection to db.
