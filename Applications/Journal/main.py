@@ -3,6 +3,7 @@
 
 from datetime import datetime
 import uuid
+import json
 
 class Entry:
     def __init__(self, title="", content="" ):
@@ -109,7 +110,64 @@ class Journal:
 
 # StorageManager is connection to db.
 class StorageManager:
-    pass
+	def __init__(self, filename="journal_data.json"):
+		self.filename = filename
+
+	def save_journal(self, journal):
+		try:
+			# convert to dictionary format
+			data = {}
+			for entry_id, entry in journal._entries.items():
+				data[entry_id] = {
+					'title': entry._title,
+					'content': entry._content,
+					'date': entry.date.isoformat(),
+					'entry_id': entry.entry_id
+				}
+			
+			# -- TEMPORARY -- simulate write date to file
+			json_output = json.dumps(data, indent=2)
+			print("=== WOULD SAVE TO FILE ===")
+			print(json_output)
+			print("=== END FILE CONTENT ===")
+
+			# Mark all entries as clean 
+			for entry in journal._entries.values():
+				entry.mark_clean()
+
+			return True, "Save successful"
+		
+		except Exception as e:
+			return False, f"Save failed: {str(e)}"
+	
+	def load_journal(self, journal):
+		try:
+			# -- TEMPORARY -- simulate loading
+			simulated_data = {
+				"test-id-123": {
+					"title": "Loaded Entry",
+					"content": "This entry was loaded from storage",
+					"date": "2025-11-29T10:30:00.000000",
+					"entry_id": "test-id-123"
+				}
+			}
+		
+			print("=== SIMULATING LOAD FROM FILE ===")
+			print(json.dumps(simulated_data, indent=2))
+		
+			for entry_data in simulated_data.values():
+				entry = Entry(entry_data['title'], entry_data['content'])
+				#override auto gen ID and Date 
+				entry.entry_id = entry_data['entry_id']
+				entry.date = datetime.fromisoformat(entry_data['date'])
+				entry.mark_clean()
+				journal.add_entry(entry)
+
+			return True, "Load successful"
+
+		except Exception as e:
+			return False, f"Load failed: {str(e)}"
+
 
 # Interface is for UI concerns only
 class Interface:
