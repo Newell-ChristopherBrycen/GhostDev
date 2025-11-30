@@ -4,7 +4,7 @@
 from datetime import datetime
 import uuid
 
-class Entry():
+class Entry:
     def __init__(self, title="", content="" ):
         # Immutable fields
         self.entry_id = str(uuid.uuid4())
